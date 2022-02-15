@@ -16,11 +16,13 @@
 #define CSLICE_SLICE_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 typedef struct Slice Slice;
 typedef struct KeyIndex KeyIndex;
 
 Slice *slice(uint32_t);
+Slice *sslice(Slice *, uint32_t, uint32_t);
 Slice *make_slice(void *, uint32_t, size_t);
 
 KeyIndex *find_index(const Slice *, const void *, int(*)(const void *, const void *));

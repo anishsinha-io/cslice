@@ -96,6 +96,12 @@ Slice *make_slice(void *keys, uint32_t capacity, size_t size) {
     return s;
 }
 
+Slice *sslice(Slice *s, uint32_t start, uint32_t end) {
+    Slice *ss = slice(end - start);
+    memcpy(ss->keys, &(s->keys[start]), sizeof(void *) * (end - start));
+    return ss;
+}
+
 void unshift(Slice *s, void *key) {
     autoresize(s);
     memcpy(&(s->keys[1]), s->keys, sizeof(void *) * s->length);
@@ -237,3 +243,4 @@ void csort(Slice *s, int(*cmpfunc)(const void *, const void *)) {
     csort(r, cmpfunc);
     merge(s, l, r, cmpfunc);
 }
+
