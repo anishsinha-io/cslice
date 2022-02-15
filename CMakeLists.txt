@@ -20,8 +20,8 @@ include_directories (
         ${LIBRARY_BASE_PATH}
 )
 
-set(SOURCE_FILES ${LIBRARY_BASE_PATH}/src/cslice/slice.c)
-set(HEADER_FILES ${LIBRARY_BASE_PATH}/include/cslice/slice.h)
+set(SOURCE_FILES ${LIBRARY_BASE_PATH}/src/cslice/cslice.c)
+set(HEADER_FILES ${LIBRARY_BASE_PATH}/include/cslice/cslice.h)
 
 add_library(${BINARY_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES})
 
