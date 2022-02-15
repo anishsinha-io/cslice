@@ -99,6 +99,7 @@ Slice *make_slice(void *keys, uint32_t capacity, size_t size) {
 Slice *sslice(Slice *s, uint32_t start, uint32_t end) {
     Slice *ss = slice(end - start);
     memcpy(ss->keys, &(s->keys[start]), sizeof(void *) * (end - start));
+    ss->length = end - start;
     return ss;
 }
 
