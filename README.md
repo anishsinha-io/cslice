@@ -8,6 +8,8 @@ some tests before you submit one.
 
 ### Usage
 
+Make sure you have CMake and GNU Make installed first!
+
 To use this library, you will need to let you compiler know to look for it. This is accomplished by the following
 procedures:
 
