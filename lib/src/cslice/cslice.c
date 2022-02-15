@@ -29,6 +29,10 @@ typedef struct KeyIndex {
     uint32_t index;
 } KeyIndex;
 
+typedef enum DATUM_SIZE {
+    CHAR = sizeof(char), INT = sizeof(int), DOUBLE = sizeof(double), FLOAT = sizeof(float), OBJ = sizeof(void *)
+} DATUM_SIZE;
+
 KeyIndex *key_index(void *key, uint32_t index) {
     KeyIndex *kx = malloc(sizeof(KeyIndex));
     kx->key = key;
@@ -87,9 +91,9 @@ Slice *slice(uint32_t capacity) {
     return s;
 }
 
-Slice *make_slice(void *keys, uint32_t capacity) {
+Slice *make_slice(void *keys, uint32_t capacity, DATUM_SIZE size) {
     Slice *s = slice(capacity);
-    for (int i = 0; i < capacity; i++) s->keys[i] = keys + sizeof(void *) * i;
+    for (int i = 0; i < capacity; i++) s->keys[i] = keys + size * i;
     s->length = capacity;
     keys = NULL;
     free(keys);

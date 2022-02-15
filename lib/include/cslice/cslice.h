@@ -19,9 +19,12 @@
 
 typedef struct Slice Slice;
 typedef struct KeyIndex KeyIndex;
+typedef enum DATUM_SIZE {
+    CHAR = sizeof(char), INT = sizeof(int), DOUBLE = sizeof(double), FLOAT = sizeof(float), OBJ = sizeof(void *)
+} DATUM_SIZE;
 
 Slice *slice(uint32_t);
-Slice *make_slice(void *, uint32_t);
+Slice *make_slice(void *, uint32_t, DATUM_SIZE);
 
 KeyIndex *find_index(const Slice *, const void *, int(*)(const void *, const void *));
 
@@ -32,8 +35,8 @@ uint32_t kx_index(KeyIndex *);
 void unshift(Slice *, void *);
 void shift(Slice *);
 void push(Slice *, void *);
-void put_index(Slice *s, void *key, uint32_t index);
-void set_index(Slice *s, void *key, uint32_t index);
+void put_index(Slice *, void *, uint32_t);
+void set_index(Slice *, void *, uint32_t);
 void fill(Slice *, void **, uint32_t);
 void csort(Slice *, int(*)(const void *, const void *));
 void print(Slice *, void(*)(const void *));
@@ -42,7 +45,7 @@ void *pop(Slice *);
 void *remove_index(Slice *, uint32_t);
 void *kx_key(KeyIndex *);
 
-const void *get_index(Slice *s, uint32_t index);
+const void *get_index(Slice *, uint32_t);
 
 void **keys(Slice *);
 
