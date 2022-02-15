@@ -19,12 +19,9 @@
 
 typedef struct Slice Slice;
 typedef struct KeyIndex KeyIndex;
-typedef enum DATUM_SIZE {
-    CHAR = sizeof(char), INT = sizeof(int), DOUBLE = sizeof(double), FLOAT = sizeof(float), OBJ = sizeof(void *)
-} DATUM_SIZE;
 
 Slice *slice(uint32_t);
-Slice *make_slice(void *, uint32_t, DATUM_SIZE);
+Slice *make_slice(void *, uint32_t, size_t);
 
 KeyIndex *find_index(const Slice *, const void *, int(*)(const void *, const void *));
 
