@@ -37,6 +37,8 @@ void push(Slice *, void *);
 void put_index(Slice *, void *, uint32_t);
 void set_index(Slice *, void *, uint32_t);
 void fill(Slice *, void **, uint32_t);
+void join(Slice *, Slice *);
+void delete_slice(Slice *);
 void csort(Slice *, int(*)(const void *, const void *));
 void print(Slice *, void(*)(const void *));
 

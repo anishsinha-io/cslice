@@ -87,6 +87,15 @@ Slice *slice(uint32_t capacity) {
     return s;
 }
 
+void delete_slice(Slice *s) {
+    s->keys = NULL;
+    free(s->keys);
+    s->length = 0;
+    s->capacity = 0;
+    s = NULL;
+    free(s);
+}
+
 Slice *make_slice(void *keys, uint32_t capacity, size_t size) {
     Slice *s = slice(capacity);
     for (int i = 0; i < capacity; i++) s->keys[i] = keys + size * i;
@@ -181,6 +190,13 @@ void fill(Slice *s, void **keys, uint32_t num_keys) {
     s->length = num_keys;
 }
 
+void join(Slice *s1, Slice *s2) {
+    if (s1->length + s2->length >= s1->capacity) resize(s1, s1->length + s2->length);
+    memcpy(&(s1->keys[s1->length]), s2->keys, sizeof(void *) * s2->length);
+    s1->length += s2->length;
+    delete_slice(s2);
+}
+
 KeyIndex *find_index(const Slice *s, const void *key, int(*cmpfunc)(const void *, const void *)) {
     int32_t start = 0, end = (int32_t) s->length - 1;
     while (start <= end) {
@@ -244,4 +260,3 @@ void csort(Slice *s, int(*cmpfunc)(const void *, const void *)) {
     csort(r, cmpfunc);
     merge(s, l, r, cmpfunc);
 }
-
